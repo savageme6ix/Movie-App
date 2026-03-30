@@ -1,5 +1,6 @@
-import Header from "./Components/Header";
 import MovieCard from "./Components/MovieCard";
+import SearchComponent from "./Components/SearchComponent";
+
 import { useState, useEffect } from "react";
 
 const Home = () => {
@@ -34,7 +35,6 @@ const Home = () => {
       
    return (
     <div>
-      <Header />
       <SearchComponent
         search={search}
         setSearch={setSearch}
