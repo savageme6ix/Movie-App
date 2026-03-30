@@ -1,8 +1,10 @@
 import Header from "./Components/Header";
 import SearchComponent from "./Components/SearchComponent";
 import MovieCard from "./Components/MovieCard";
-
+import { useState, useEffect } from "react";
 const App = () => {
+  const [results , setResults ] = useState([]);
+
   async function fetchMovie() {
     try{
       const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}`);
@@ -12,19 +14,30 @@ const App = () => {
         throw new Error (message);
       }
       const data = await response.json();
-      console.log(data);
+      setResults(data.results);
 
     } catch (error){
       console.error("Fetch error" , error.message)
     }
   }
-  fetchMovie();
+
+  useEffect(()=>{
+    fetchMovie()
+  },[])
+  
 
   return (
     <div>
       <Header />
       <SearchComponent />
-      <MovieCard />
+      {results.map((movie)=>(
+        <MovieCard 
+          key={movie.id}
+          title={movie.title}
+          image={movie.poster_path}
+          date={movie.release_date}
+        />
+      ))}
     </div>
   )
 }
