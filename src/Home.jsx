@@ -1,5 +1,4 @@
 import Header from "./Components/Header";
-import {Routes , Route} from "react-router-dom";
 import MovieCard from "./Components/MovieCard";
 import { useState, useEffect } from "react";
 
