@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(95, 95, 95);
+}
+
+.headerContainer{
+    background-color: black;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    color: rgb(72, 72, 252);
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.headerContainer h4{
+     margin-left: 10px; 
+}
+.headerContainer a{
+     margin-right: 10px; 
+}
