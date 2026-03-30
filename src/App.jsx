@@ -4,32 +4,42 @@ import MovieCard from "./Components/MovieCard";
 import { useState, useEffect } from "react";
 const App = () => {
   const [results , setResults ] = useState([]);
+  const [search, setSearch] = useState('');
 
   async function fetchMovie() {
-    try{
-      const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}`);
+  //  Determine which URL to use
+  const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&query=${search}`;
+  const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}`;
 
-      if(!response.ok){
-        const message = `An error occurred: ${response.status}`
-        throw new Error (message);
-      }
-      const data = await response.json();
-      setResults(data.results);
+  const url = search.length > 0 ? searchUrl : popularUrl;
 
-    } catch (error){
-      console.error("Fetch error" , error.message)
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`An error occurred: ${response.status}`);
     }
+
+    const data = await response.json();
+    setResults(data.results);
+    
+  } catch (error) {
+    console.error("Fetch error", error.message);
   }
+}
 
   useEffect(()=>{
     fetchMovie()
-  },[])
+  },[search])
   
 
   return (
     <div>
       <Header />
-      <SearchComponent />
+      <SearchComponent
+        search={search}
+        setSearch={setSearch}
+      />
       <div className="movieCard">
       {results.map((movie)=>(
         <MovieCard 
