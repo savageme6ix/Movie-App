@@ -30,6 +30,7 @@ const App = () => {
     <div>
       <Header />
       <SearchComponent />
+      <div className="movieCard">
       {results.map((movie)=>(
         <MovieCard 
           key={movie.id}
@@ -38,6 +39,7 @@ const App = () => {
           date={movie.release_date}
         />
       ))}
+      </div>
     </div>
   )
 }
