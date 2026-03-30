@@ -29,8 +29,8 @@ const App = () => {
 }
 
   useEffect(()=>{
-    fetchMovie()
-  },[search])
+      fetchMovie()
+  },[])
   
 
   return (
@@ -39,6 +39,7 @@ const App = () => {
       <SearchComponent
         search={search}
         setSearch={setSearch}
+        handleSearch={fetchMovie}
       />
       <div className="movieCard">
       {results.map((movie)=>(

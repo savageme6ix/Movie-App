@@ -1,5 +1,5 @@
 
-const SearchComponent = ({search,setSearch}) => {
+const SearchComponent = ({search,setSearch,handleSearch}) => {
   return (
     <div className="searchContainer">
         <input 
@@ -7,7 +7,7 @@ const SearchComponent = ({search,setSearch}) => {
             value={search}
             onChange={(e)=> setSearch(e.target.value)}
         />
-        <button>Search</button>
+        <button onClick={handleSearch}>Search</button>
     </div>
   )
 }
