@@ -6,56 +6,80 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 40%, #16213e 100%);
   background-attachment: fixed;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   color: #e8e8f0;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
 }
 
 /* ── Header ── */
 .headerContainer {
   background: rgba(10, 10, 20, 0.85);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  height: 60px;
+  min-height: 56px;
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 32px;
+  padding: 8px max(16px, env(safe-area-inset-right)) 8px max(16px, env(safe-area-inset-left));
   position: sticky;
   top: 0;
   z-index: 100;
+  gap: 12px;
 }
 
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   color: #e94560;
+  min-width: 0;
+}
+
+.header-brand svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
 .header-brand h4 {
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
   font-weight: 700;
   letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-links {
   display: flex;
-  gap: 8px;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 .nav-link {
   color: #a0a0b8;
   text-decoration: none;
-  padding: 8px 18px;
+  padding: 8px 12px;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   font-weight: 500;
   transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -70,40 +94,49 @@ body {
 
 /* ── Page layout ── */
 .page-container {
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px 60px;
+  padding: 0 clamp(12px, 4vw, 32px) clamp(40px, 8vw, 60px);
 }
 
 .page-header {
   text-align: center;
-  padding: 48px 0 12px;
+  padding: clamp(28px, 6vw, 48px) 0 clamp(8px, 2vw, 12px);
 }
 
 .page-header h1 {
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   background: linear-gradient(135deg, #fff 0%, #c4c4d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  line-height: 1.2;
 }
 
 .page-header p {
   color: #8888a0;
   margin-top: 8px;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  padding: 0 8px;
+  line-height: 1.5;
 }
 
 /* ── Search ── */
 .searchContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 32px 0 16px;
+  align-items: stretch;
+  gap: 10px;
+  margin: clamp(20px, 4vw, 32px) 0 clamp(12px, 2vw, 16px);
+  width: 100%;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 4px;
 }
 
 .search-input-wrapper {
@@ -113,9 +146,8 @@ body {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 0 16px;
-  width: 42%;
-  max-width: 480px;
+  padding: 0 14px;
+  width: 100%;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -130,13 +162,14 @@ body {
 }
 
 .searchContainer input {
-  height: 48px;
+  height: 44px;
   width: 100%;
+  min-width: 0;
   border: none;
   background: transparent;
   color: #fff;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 16px;
   outline: none;
 }
 
@@ -147,8 +180,9 @@ body {
 .searchContainer button {
   color: #fff;
   background: linear-gradient(135deg, #e94560, #c23152);
-  height: 48px;
-  padding: 0 28px;
+  height: 44px;
+  width: 100%;
+  padding: 0 24px;
   border-radius: 12px;
   border: none;
   font-family: inherit;
@@ -170,23 +204,18 @@ body {
 /* ── Movie grid ── */
 .movieCard {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 28px;
-  padding: 32px 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 3vw, 28px);
+  padding: clamp(16px, 4vw, 32px) 0;
 }
 
 /* ── Card ── */
 .card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
+  border-radius: clamp(12px, 2vw, 16px);
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .card-image-wrapper {
@@ -202,20 +231,17 @@ body {
   transition: transform 0.3s ease;
 }
 
-.card:hover img {
-  transform: scale(1.04);
-}
-
 .heart-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 38px;
-  height: 38px;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   color: #fff;
   cursor: pointer;
   display: flex;
@@ -223,11 +249,12 @@ body {
   justify-content: center;
   transition: transform 0.2s, background 0.2s, color 0.2s;
   z-index: 2;
+  touch-action: manipulation;
 }
 
-.heart-btn:hover {
-  transform: scale(1.15);
-  background: rgba(0, 0, 0, 0.75);
+.heart-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .heart-btn--active {
@@ -235,16 +262,12 @@ body {
   background: rgba(233, 69, 96, 0.2);
 }
 
-.heart-btn--active:hover {
-  background: rgba(233, 69, 96, 0.35);
-}
-
 .card footer {
-  padding: 14px 16px 18px;
+  padding: clamp(10px, 2vw, 14px) clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 18px);
 }
 
 .card footer h3 {
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 2.2vw, 0.95rem);
   font-weight: 600;
   line-height: 1.35;
   display: -webkit-box;
@@ -256,7 +279,7 @@ body {
 .card-year {
   display: inline-block;
   margin-top: 6px;
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
   color: #8888a0;
   background: rgba(255, 255, 255, 0.06);
   padding: 2px 10px;
@@ -266,7 +289,7 @@ body {
 /* ── Empty state ── */
 .empty-state {
   text-align: center;
-  padding: 80px 20px;
+  padding: clamp(48px, 12vw, 80px) clamp(16px, 4vw, 20px);
   color: #8888a0;
 }
 
@@ -274,43 +297,194 @@ body {
   color: #e94560;
   opacity: 0.5;
   margin-bottom: 20px;
+  width: clamp(48px, 12vw, 64px);
+  height: clamp(48px, 12vw, 64px);
 }
 
 .empty-state h2 {
-  font-size: 1.4rem;
+  font-size: clamp(1.15rem, 4vw, 1.4rem);
   color: #c4c4d4;
   margin-bottom: 8px;
 }
 
 .empty-state p {
-  font-size: 0.95rem;
+  font-size: clamp(0.875rem, 2.5vw, 0.95rem);
+  line-height: 1.5;
 }
 
-/* ── Responsive ── */
-@media (max-width: 640px) {
-  .headerContainer {
-    padding: 0 16px;
+/* ── Hover effects (pointer devices only) ── */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   }
 
-  .searchContainer {
-    flex-direction: column;
+  .card:hover img {
+    transform: scale(1.04);
   }
 
-  .search-input-wrapper {
-    width: 100%;
-    max-width: none;
+  .heart-btn:hover {
+    transform: scale(1.15);
+    background: rgba(0, 0, 0, 0.75);
   }
 
-  .searchContainer button {
-    width: 100%;
+  .heart-btn--active:hover {
+    background: rgba(233, 69, 96, 0.35);
+  }
+}
+
+/* ── Small phones (≤ 360px) ── */
+@media (max-width: 360px) {
+  .header-links {
+    gap: 2px;
   }
 
-  .page-header h1 {
-    font-size: 1.6rem;
+  .nav-link {
+    padding: 8px 10px;
+  }
+
+  .movieCard {
+    gap: 10px;
+  }
+
+  .heart-btn {
+    width: 32px;
+    height: 32px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .heart-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* ── Large phones (≥ 480px) ── */
+@media (min-width: 480px) {
+  .header-brand svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header-links {
+    gap: 8px;
+  }
+
+  .nav-link {
+    padding: 8px 16px;
   }
 
   .movieCard {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 16px;
+  }
+
+  .searchContainer input,
+  .searchContainer button {
+    height: 48px;
+  }
+}
+
+/* ── Tablets (≥ 640px) ── */
+@media (min-width: 640px) {
+  .headerContainer {
+    min-height: 60px;
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
+  }
+
+  .searchContainer {
+    flex-direction: row;
+    align-items: center;
+    max-width: 720px;
+  }
+
+  .search-input-wrapper {
+    flex: 1;
+  }
+
+  .searchContainer button {
+    width: auto;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .movieCard {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/* ── Small laptops / landscape tablets (≥ 768px) ── */
+@media (min-width: 768px) {
+  .nav-link {
+    padding: 8px 18px;
+  }
+
+  .movieCard {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* ── Desktops (≥ 1024px) ── */
+@media (min-width: 1024px) {
+  .headerContainer {
+    padding-left: max(32px, env(safe-area-inset-left));
+    padding-right: max(32px, env(safe-area-inset-right));
+  }
+
+  .searchContainer {
+    max-width: 640px;
+  }
+
+  .search-input-wrapper {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .movieCard {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px;
+  }
+
+  .heart-btn {
+    width: 38px;
+    height: 38px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .heart-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ── Large desktops (≥ 1280px) ── */
+@media (min-width: 1280px) {
+  .movieCard {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+/* ── Ultra-wide screens (≥ 1536px) ── */
+@media (min-width: 1536px) {
+  .page-container {
+    max-width: 1600px;
+  }
+
+  .movieCard {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 32px;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
